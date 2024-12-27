@@ -1,17 +1,13 @@
 const express = require('express');
+const morgan = require('morgan');
 let pokemons = require('./mock-pokemons');
 const { success, error } = require('./helper');
 
 const app = express();
 const port = 3000;
 
-// Middleware
-app.use((req, res, next) => {
-  const url = req.url;
-  const method = req.method;
-  console.table({ method, url });
-  next();
-});
+// Middleware : morgan lib
+app.use(morgan('dev'));
 
 // Routes
 app.get('/', (req, res) => {
