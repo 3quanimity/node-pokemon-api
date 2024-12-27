@@ -1,13 +1,17 @@
 const express = require('express');
 const morgan = require('morgan');
-let pokemons = require('./mock-pokemons');
+const favicon = require('serve-favicon');
+const path = require('path');
 const { success, error } = require('./helper');
+let pokemons = require('./mock-pokemons');
 
 const app = express();
 const port = 3000;
 
-// Middleware : morgan lib
-app.use(morgan('dev'));
+// Chaining middlewares : serve-favicon + morgan
+app
+  .use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+  .use(morgan('dev'));
 
 // Routes
 app.get('/', (req, res) => {
