@@ -1,3 +1,5 @@
+let pokemons = require('./mock-pokemons');
+
 const success = (message, data) => {
   return {
     status: 'success',
@@ -14,7 +16,11 @@ const error = (message, data) => {
   };
 };
 
+const generatePokemonId = () =>
+  Math.max(...pokemons.map(pokemon => pokemon.id)) + 1;
+
 module.exports = {
   success,
   error,
+  generatePokemonId,
 };
