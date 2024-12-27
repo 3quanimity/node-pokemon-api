@@ -5,6 +5,15 @@ const { success, error } = require('./helper');
 const app = express();
 const port = 3000;
 
+// Middleware
+app.use((req, res, next) => {
+  const url = req.url;
+  const method = req.method;
+  console.table({ method, url });
+  next();
+});
+
+// Routes
 app.get('/', (req, res) => {
   res.send('Hello Express 👋🏼');
 });
