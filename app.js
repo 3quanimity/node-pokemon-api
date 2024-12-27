@@ -35,10 +35,26 @@ app.get('/api/pokemons', (req, res) => {
 app.post('/api/pokemons', (req, res) => {
   const id = generatePokemonId();
   const pokemonCreated = { ...req.body, id, created: new Date() };
-  console.log('🚀 ~ req.body:', req.body);
   pokemons.push(pokemonCreated);
   const message = `Pokemon ${pokemonCreated.name} created`;
   res.json(success(message, pokemonCreated));
+});
+
+app.put('/api/pokemons/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const pokemonUpdated = { ...req.body, id };
+  pokemons = pokemons.map(pokemon =>
+    pokemonUpdated.id === id ? pokemonUpdated : pokemon
+  );
+  const message = `Pokemon ${pokemonUpdated.name} updated`;
+  res.json(success(message, pokemonUpdated));
+});
+
+app.delete('/api/pokemons/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  pokemons = pokemons.filter(pokemon => pokemon.id !== id);
+  const message = `Pokemon with id ${id} deleted`;
+  res.json(success(message));
 });
 
 // 🟢 Start the Server
