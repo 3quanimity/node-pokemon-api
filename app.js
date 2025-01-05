@@ -16,7 +16,8 @@ app
 
 sequelize.initDb();
 
-// TODO: futur endpoints here
+// Endpoints
+require('./src/routes/findAllPokemons')(app);
 
 app.listen(port, () => {
   console.log(
