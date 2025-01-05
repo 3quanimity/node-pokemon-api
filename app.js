@@ -3,9 +3,10 @@ const morgan = require('morgan');
 const favicon = require('serve-favicon');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const { success, error, generatePokemonId } = require('./helper');
 let pokemons = require('./mock-pokemons');
+const PokemonModel = require('./src/models/pokemon');
 
 const app = express();
 const port = 3000;
@@ -29,12 +30,18 @@ sequelize
   .authenticate()
   .then(() =>
     console.log(
-      '🟣 SEQUELIZE: Connection to the database has been established successfully 👌🏼'
+      '🟣 SEQUELIZE: 👌🏼 Connection to the database has been established successfully'
     )
   )
   .catch(err =>
     console.error('🟣 SEQUELIZE: 😶‍🌫️ Unable to connect to the database:', err)
   );
+
+const Pokemon = PokemonModel(sequelize, DataTypes);
+
+sequelize.sync({ force: true }).then(() => {
+  console.log('🟣 SEQUELIZE: Pokedex Database has been synchronized');
+});
 
 // Chaining middlewares : serve-favicon + morgan
 app
