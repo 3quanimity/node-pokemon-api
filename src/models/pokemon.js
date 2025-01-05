@@ -11,15 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      types: {
+      type: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       hp: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      cp: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

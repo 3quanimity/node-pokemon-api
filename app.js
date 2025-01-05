@@ -28,11 +28,11 @@ const sequelize = new Sequelize(
 
 sequelize
   .authenticate()
-  .then(() =>
+  .then(() => {
     console.log(
       '🟣 SEQUELIZE: 👌🏼 Connection to the database has been established successfully'
-    )
-  )
+    );
+  })
   .catch(err =>
     console.error('🟣 SEQUELIZE: 😶‍🌫️ Unable to connect to the database:', err)
   );
@@ -40,6 +40,20 @@ sequelize
 const Pokemon = PokemonModel(sequelize, DataTypes);
 
 sequelize.sync({ force: true }).then(() => {
+  pokemons.forEach(pokemon => {
+    Pokemon.create({
+      name: pokemon.name,
+      hp: pokemon.hp,
+      type: pokemon.type.join(),
+      picture: pokemon.picture,
+    }).then(pokemon => {
+      console.log(
+        `🟣 SEQUELIZE: ${pokemon.name} has been created`,
+        pokemon.toJSON()
+      );
+    });
+  });
+
   console.log('🟣 SEQUELIZE: Pokedex Database has been synchronized');
 });
 
