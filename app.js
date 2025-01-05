@@ -10,6 +10,7 @@ let pokemons = require('./mock-pokemons');
 const app = express();
 const port = 3000;
 
+// Interaction with the database
 const sequelize = new Sequelize(
   'pokedex', // db's name
   'root', // username
@@ -28,10 +29,12 @@ sequelize
   .authenticate()
   .then(() =>
     console.log(
-      'Connection to the database has been established successfully 👌🏼'
+      '🟣 SEQUELIZE: Connection to the database has been established successfully 👌🏼'
     )
   )
-  .catch(err => console.error('😶‍🌫️ Unable to connect to the database:', err));
+  .catch(err =>
+    console.error('🟣 SEQUELIZE: 😶‍🌫️ Unable to connect to the database:', err)
+  );
 
 // Chaining middlewares : serve-favicon + morgan
 app
@@ -83,5 +86,7 @@ app.delete('/api/pokemons/:id', (req, res) => {
 
 // 🟢 Start the Server
 app.listen(port, () => {
-  console.log(`App started and listening on 👉🏼 http://localhost:${port}`);
+  console.log(
+    `🟢 APP: App started and listening on 👉🏼 http://localhost:${port}`
+  );
 });
