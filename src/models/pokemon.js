@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       type: {
         type: DataTypes.STRING,
         allowNull: false,
+        get() {
+          return this.getDataValue('type').split(',');
+        },
+        set(type) {
+          this.setDataValue('type', type.join(','));
+        },
       },
       hp: {
         type: DataTypes.INTEGER,

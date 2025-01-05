@@ -24,7 +24,7 @@ const initDb = () => {
       Pokemon.create({
         name: pokemon.name,
         hp: pokemon.hp,
-        type: pokemon.type.join(),
+        type: pokemon.type,
         picture: pokemon.picture,
       }).then(pokemon => {
         console.log(
